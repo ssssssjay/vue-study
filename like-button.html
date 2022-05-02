@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>좋아요버튼Vue</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p><strong>{{ message }}</strong> : app.message를 콘솔에서 바꾸어보세요</p>
+    <p v-if="liked">좋아요 누름</p>
+    <button v-else v-on:click="onClickButton">💙</button>
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'vue',
+      liked: false
+    },
+    methods: {
+      onClickButton() {
+        this.liked = true;
+      }
+    }
+  })
+</script>
+</html>
