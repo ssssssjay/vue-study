@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구구단</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <h1>구구단 게임 만들기</h1>
+      <p>{{ 첫번째 }} 곱하기 {{ 두번째 }}는?</p>
+      <form v-on:submit="onSubmitForm">
+        <!-- <input type="number" v-model="답안" autofocus> -->
+        <input type="number" v-model="답안" ref="answer">
+        <button type="submit">정답제출</button>
+      </form>
+      <strong>{{ 결과 }}</strong>
+  </div>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        첫번째 : Math.ceil(Math.random() * 9),
+        두번째 : Math.ceil(Math.random() * 9),
+        답안 : '',
+        결과 : '',
+      },
+      methods: {
+        onSubmitForm(event) {
+          event.preventDefault();
+          console.log('test');
+          console.log(this);
+          console.log(this.첫번째, this.두번째, this.답안);
+          if (parseInt(this.답안) === this.첫번째 * this.두번째) {
+            this.결과 = '정답이요~';
+            this.첫번째 = Math.ceil(Math.random() * 9);
+            this.두번째 = Math.ceil(Math.random() * 9);
+            this.답안 = '';
+            this.$refs.answer.focus();
+          } else {
+            this.결과 = "틀렸어요~"
+            this.답안 = '';
+            this.$refs.answer.focus();
+          }
+        }
+      },
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>끝말잇기</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <h1>끝말잇기 재밌어</h1>
+    <span>{{ 1 + 2 }}</span>
+    <span>{{ 'sung' + 'jae' }}</span>
+    <p>{{ word }}</p>
+    <form v-on:submit="onSubmitForm">
+      <input type="text" placeholder="쿵 쿵 따" autofocus v-model="value">
+      <button>제출~</button>
+    </form>
+    <strong>{{ result }}</strong>
+  </div>
+  <script>
+    const app = new Vue({
+      el: '#root',
+      data: {
+        word: '스피커',
+        value: '',
+        result: '',
+      },
+      methods: {
+        onSubmitForm(e) {
+          e.preventDefault();
+          console.log('test');
+          if(this.value[0] === this.word[this.word.length - 1]) {
+            this.result = 'correct';
+            this.word = this.value;
+            this.value = '';
+          } else {
+            this.result = 'incorrect';
+            this.value = '';
+          }
+        }
+      },
+    })
+  </script>
+</body>
+</html>
