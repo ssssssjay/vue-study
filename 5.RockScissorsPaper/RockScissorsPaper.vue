@@ -14,7 +14,22 @@
     바위: '0',
     가위: '-142px',
     보: '-284px'
-  }
+  };
+
+  const scores = {
+    바위: 0,
+    가위: 1,
+    보: -1,
+  };
+
+  const computerPick = (imgCoord) => {
+    return Object.entries(rspCoords).find(el => {
+      return el[1] === imgCoord;
+    })[0];
+  };
+
+  let interval = null;
+  
   export default {
     data() {
       return {
@@ -45,8 +60,22 @@
       },
       onClickButton(pick) {
         clearInterval(interval);
-        console.log(pick);
-      }
+        const myScore = scores[pick];
+        const cpuScore = scores[computerPick(this.imgCoord)]
+        const diff = myScore - cpuScore;
+        if (diff === 0) {
+          this.result = '비겼습니다.';
+        } else if ([-1, 2].includes(diff)) {
+          this.result = '이겼습니다.';
+          this.score += 1;
+        } else {
+          this.result = '졌습니다.';
+          this.score -= 1;
+        }
+        setTimeout(() => {
+          this.changeHand();
+        }, 1500);
+      },
     },
     beforeCreate() {
       console.log('beforeCreate');
