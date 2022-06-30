@@ -22,7 +22,7 @@
   import { CLICK_MINE, CODE, FLAG_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL } from './store';
 
   export default {
-        computed: {
+    computed: {
       ...mapState(['tableData', 'halted']),
       cellDataStyle(state) {
         return (row, col) => {
@@ -78,7 +78,15 @@
         if(this.halted) {
           return;
         }
-        this.$store.commit(OPEN_CELL, { row, col });
+        switch (this.tableData[row][col]) {
+          case CODE.NORMAL:
+            this.$store.commit(OPEN_CELL, { row, col });
+            break;
+          case CODE.MINE:
+            this.$store.commit(CLICK_MINE, { row, col });
+          default:
+            return;
+        }
       },
       onRightClickTd(row, col) {
         if (this.halted) {

@@ -14,7 +14,7 @@
 
   import MineForm from './MineForm'
   import TableComponent from './TableComponent';
-
+  let interval; // 메모리누수 막기위해서 클리어 처리 해줘야함
   export default {
     store,
     components: {
@@ -34,7 +34,7 @@
     watch: {
       halted(value, oldValue) {
         if (value === false) { // false일 때 게임 시작
-          let interval = setInterval(() => {
+          interval = setInterval(() => {
             this.$store.commit(INCREMENT_TIMER);
           }, 1000);
         } else { // 게임 중단
@@ -59,7 +59,6 @@
     width: 40px;
     height: 40px;
     text-align: center;
-    color: dodgerblue;
     font-size: 20px;
     font-weight: 700;
   }
